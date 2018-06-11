@@ -25,6 +25,9 @@ __status__ = "Prototype"
 tag1 = "3541237681"
 tag2 = "3541300382"
 
+volume_min = 0.0
+volume_max = 1.0
+
 
 class LeitorCartao(threading.Thread):
 
@@ -73,9 +76,9 @@ class LeitorCartao(threading.Thread):
     def ler(self):
         try:
             if self.obtem_numero_cartao_rfid():
-                self.update_volumes(self.numero_cartao, 1.0)
+                self.update_volumes(self.numero_cartao, volume_max)
             else:
-                self.update_volumes(self.numero_cartao, 0.05)
+                self.update_volumes(self.numero_cartao, volume_min)
         except Exception as e:
             print e
 
@@ -90,3 +93,7 @@ class LeitorCartao(threading.Thread):
             self.music_player.set_volume1(volume)
         elif numero == tag2:
             self.music_player.set_volume2(volume)
+
+    def turnoff_volumes(self):
+        self.music_player.set_volume1(volume_min)
+        self.music_player.set_volume2(volume_max)

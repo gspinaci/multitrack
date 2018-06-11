@@ -44,11 +44,11 @@ class Player():
     self.stream.start_stream()
 
   def set_volume1(self, volume1):
-    print "Set DRUM volume to " + str(volume1)
+    print "Set AUDIO1 volume to " + str(volume1)
     self.volume1 = volume1
 
   def set_volume2(self, volume2):
-    print "Set GUITAR volume to " + str(volume2)
+    print "Set AUDIO2 volume to " + str(volume2)
     self.volume2 = volume2
 
   def stop(self):
