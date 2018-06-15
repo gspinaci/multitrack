@@ -79,6 +79,7 @@ class LeitorCartao(threading.Thread):
     def ler(self):
         try:
             read_values = self.obtem_numero_cartao_rfid()
+            print read_values
 
             if self.is_tag_active(tag1, read_values[0]):
                 self.update_volumes(tag1, volume_max)

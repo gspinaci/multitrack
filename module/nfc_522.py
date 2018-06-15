@@ -32,18 +32,14 @@ class Nfc522(object):
     
     def obtem_nfc_rfid(self, autenticacao=False):
         try:
-            print "obtem_nfc_rfid --"
             result1 = None
             result2 = None
             
             print "Reader 1"
             self.MIFAREReader = MFRC522(self.RST1, self.SPI_DEV0)
-            print "MFRC522_Request"
             (status, TagType) = self.MIFAREReader.MFRC522_Request(self.MIFAREReader.PICC_REQIDL)
-            print "MFRC522_Anticoll"
             (status, uid) = self.MIFAREReader.MFRC522_Anticoll()
             
-            print "Reading..."
             if status == self.MIFAREReader.MI_OK:
                 result1 = self.obtem_tag(self.MIFAREReader, status, uid, autenticacao)
                 print result1 
@@ -55,7 +51,6 @@ class Nfc522(object):
             (status, TagType) = self.MIFAREReader.MFRC522_Request(self.MIFAREReader.PICC_REQIDL)
             (status, uid) = self.MIFAREReader.MFRC522_Anticoll()
             
-            print "Reading..."
             if status == self.MIFAREReader.MI_OK:
                 result2 = self.obtem_tag(self.MIFAREReader, status, uid, autenticacao)
                 print result2
