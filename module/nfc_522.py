@@ -35,7 +35,6 @@ class Nfc522(object):
             result1 = None
             result2 = None
             
-            print "Reader 1"
             self.MIFAREReader = MFRC522(self.RST1, self.SPI_DEV0)
             (status, TagType) = self.MIFAREReader.MFRC522_Request(self.MIFAREReader.PICC_REQIDL)
             (status, uid) = self.MIFAREReader.MFRC522_Anticoll()
@@ -45,8 +44,7 @@ class Nfc522(object):
                 print result1 
             # else:
             #     self.pc.atualiza(self.RST1, self.pc.baixo())
-            
-            print "Reader 2"
+
             self.MIFAREReader = MFRC522(self.RST2, self.SPI_DEV1)
             (status, TagType) = self.MIFAREReader.MFRC522_Request(self.MIFAREReader.PICC_REQIDL)
             (status, uid) = self.MIFAREReader.MFRC522_Anticoll()
@@ -57,7 +55,6 @@ class Nfc522(object):
             # else:
             #     self.pc.atualiza(self.RST2, self.pc.baixo())
 
-            print "Reading done"
             return (result1, result2)
 
         except Exception as e:
