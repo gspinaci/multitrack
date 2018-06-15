@@ -34,7 +34,7 @@ class LeitorCartao(threading.Thread):
     nfc = Nfc522()
     numero_cartao = None
 
-    def __init__(self, intervalo=0,1):
+    def __init__(self, intervalo=0.1):
         threading.Thread.__init__(self)
         self._stopevent = threading.Event()
         self._sleepperiod = intervalo
