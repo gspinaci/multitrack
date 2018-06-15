@@ -32,6 +32,7 @@ class Nfc522(object):
     
     def obtem_nfc_rfid(self, autenticacao=False):
         try:
+            print "obtem_nfc_rfid --"
             result1 = None
             result2 = None
             
@@ -41,6 +42,7 @@ class Nfc522(object):
             
             if status == self.MIFAREReader.MI_OK:
                 result1 = self.obtem_tag(self.MIFAREReader, status, uid, autenticacao)
+                print result1 
             else:
                 self.pc.atualiza(self.RST1, self.pc.baixo())
             
@@ -50,6 +52,7 @@ class Nfc522(object):
             
             if status == self.MIFAREReader.MI_OK:
                 result2 = self.obtem_tag(self.MIFAREReader, status, uid, autenticacao)
+                print result2
             else:
                 self.pc.atualiza(self.RST2, self.pc.baixo())
             return (result1, result2)

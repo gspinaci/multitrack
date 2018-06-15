@@ -34,7 +34,7 @@ class LeitorCartao(threading.Thread):
     nfc = Nfc522()
     numero_cartao = None
 
-    def __init__(self, intervalo=1):
+    def __init__(self, intervalo=0.05):
         threading.Thread.__init__(self)
         self._stopevent = threading.Event()
         self._sleepperiod = intervalo
@@ -78,9 +78,9 @@ class LeitorCartao(threading.Thread):
 
     def ler(self):
         try:
-            read_values = self.obtem_numero_cartao_rfid():
+            read_values = self.obtem_numero_cartao_rfid()
 
-            if self.is_tag_active(tag1, read_values[0]):  
+            if self.is_tag_active(tag1, read_values[0]):
                 self.update_volumes(tag1, volume_max)
             else:
                 self.update_volumes(tag1, volume_min)
