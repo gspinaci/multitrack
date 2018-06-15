@@ -56,29 +56,40 @@ class LeitorCartao(threading.Thread):
     def obtem_numero_cartao_rfid(self):
         id = None
         try:
-            while True:
-                id = self.nfc.obtem_nfc_rfid()
-                if id:
-                    id = str(id).zfill(10)
-                    if (len(id) >= 10):
-                        self.numero_cartao = id
-                        print "Read TAG Number: " + str(self.numero_cartao)
-                        return self.numero_cartao
-                    else:
-                        print "Error TAG Number: " + str(self.numero_cartao)
-                        id = None
-                        return None
-                else:
-                    return id
+            id = self.nfc.obtem_nfc_rfid()
+            # if id:
+            #     id = str(id).zfill(10)
+            #     if (len(id) >= 10):
+            #         self.numero_cartao = id
+            #         print "Read TAG Number: " + str(self.numero_cartao)
+            #         return self.numero_cartao
+            #     else:
+            #         print "Error TAG Number: " + str(self.numero_cartao)
+            #         id = None
+            #         return None
+            # else:
+            #     return id
+            return id
         except Exception as e:
             print e
 
+    def is_tag_active(self, tag_id, read_value):
+        return tag_id == read_value
+
     def ler(self):
         try:
-            if self.obtem_numero_cartao_rfid():
-                self.update_volumes(self.numero_cartao, volume_max)
+            read_values = self.obtem_numero_cartao_rfid():
+
+            if self.is_tag_active(tag1, read_values[0]):  
+                self.update_volumes(tag1, volume_max)
             else:
-                self.update_volumes(self.numero_cartao, volume_min)
+                self.update_volumes(tag1, volume_min)
+
+            if self.is_tag_active(tag2, read_values[1]):  
+                self.update_volumes(tag2, volume_max)
+            else:
+                self.update_volumes(tag2, volume_min)
+
         except Exception as e:
             print e
 

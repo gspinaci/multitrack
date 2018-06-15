@@ -32,25 +32,28 @@ class Nfc522(object):
     
     def obtem_nfc_rfid(self, autenticacao=False):
         try:
+            result1 = None
+            result2 = None
+            
             self.MIFAREReader = MFRC522(self.RST1, self.SPI_DEV0)
-            while True:
-                (status, TagType) = self.MIFAREReader.MFRC522_Request(self.MIFAREReader.PICC_REQIDL)
-                (status, uid) = self.MIFAREReader.MFRC522_Anticoll()
-                
-                if status == self.MIFAREReader.MI_OK:
-                    return self.obtem_tag(self.MIFAREReader, status, uid, autenticacao)
-                else:
-                    self.pc.atualiza(self.RST1, self.pc.baixo())
-                    self.MIFAREReader = MFRC522(self.RST2, self.SPI_DEV1)
-                    while True:
-                        (status, TagType) = self.MIFAREReader.MFRC522_Request(self.MIFAREReader.PICC_REQIDL)
-                        (status, uid) = self.MIFAREReader.MFRC522_Anticoll()
-                        
-                        if status == self.MIFAREReader.MI_OK:
-                            return self.obtem_tag(self.MIFAREReader, status, uid, autenticacao)
-                        else:
-                            self.pc.atualiza(self.RST2, self.pc.baixo())
-                            return None
+            (status, TagType) = self.MIFAREReader.MFRC522_Request(self.MIFAREReader.PICC_REQIDL)
+            (status, uid) = self.MIFAREReader.MFRC522_Anticoll()
+            
+            if status == self.MIFAREReader.MI_OK:
+                result1 = self.obtem_tag(self.MIFAREReader, status, uid, autenticacao)
+            else:
+                self.pc.atualiza(self.RST1, self.pc.baixo())
+            
+            self.MIFAREReader = MFRC522(self.RST2, self.SPI_DEV1)
+            (status, TagType) = self.MIFAREReader.MFRC522_Request(self.MIFAREReader.PICC_REQIDL)
+            (status, uid) = self.MIFAREReader.MFRC522_Anticoll()
+            
+            if status == self.MIFAREReader.MI_OK:
+                result2 = self.obtem_tag(self.MIFAREReader, status, uid, autenticacao)
+            else:
+                self.pc.atualiza(self.RST2, self.pc.baixo())
+            return (result1, result2)
+
         except Exception as e:
             print e
         finally:
