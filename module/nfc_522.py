@@ -38,7 +38,9 @@ class Nfc522(object):
             
             print "Reader 1"
             self.MIFAREReader = MFRC522(self.RST1, self.SPI_DEV0)
+            print "MFRC522_Request"
             (status, TagType) = self.MIFAREReader.MFRC522_Request(self.MIFAREReader.PICC_REQIDL)
+            print "MFRC522_Anticoll"
             (status, uid) = self.MIFAREReader.MFRC522_Anticoll()
             
             print "Reading..."
