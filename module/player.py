@@ -10,8 +10,8 @@ p = pyaudio.PyAudio()
 class Player():
 
   def __init__(self):
-    self.sound1 = wave.open("pizzica/drums.wav", 'rb')
-    self.sound2 = wave.open("pizzica/guitar.wav", 'rb')
+    self.sound1 = wave.open("pizzica/rithm.wav", 'rb')
+    self.sound2 = wave.open("pizzica/lead.wav", 'rb')
     #self.sound3 = wave.open("pizzica/rithm.wav", 'rb')
     self.volume1 = 0.05
     self.volume2 = 0.05
