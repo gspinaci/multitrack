@@ -79,10 +79,10 @@ class PinoControle(PinosGPIO):
             pino_config = self.pins[pino_numero]
             if pino_config['modo'] == 'OUT':
                 self.gpio.setup(pino_config['gpio'], self.gpio.OUT)
-                print pino_config['nome']
+                # print pino_config['nome']
             if pino_config['modo'] == 'IN':
                 self.gpio.setup(pino_config['gpio'], self.gpio.IN, pull_up_down= self.gpio.PUD_UP if pino_config['resistor'] == 'PUD_UP' else self.gpio.PUD_DOWN)
-                print pino_config['nome']
+                # print pino_config['nome']
             pino_habilitado = self.pino_response(pino_numero, pino_config)
             return pino_habilitado
         except Exception as e:
