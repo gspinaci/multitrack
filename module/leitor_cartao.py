@@ -74,7 +74,7 @@ class LeitorCartao(threading.Thread):
             print e
 
     def is_tag_active(self, tag_id, read_value):
-        return tag_id == read_value[0] || tag_id == read_value[1]
+        return tag_id == read_value[0] or tag_id == read_value[1]
 
     def ler(self):
         try:
