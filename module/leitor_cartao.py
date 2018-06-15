@@ -82,12 +82,12 @@ class LeitorCartao(threading.Thread):
             print read_values
 
 
-            if self.is_tag_active(tag1, read_values):
+            if read_values[0]:
                 self.update_volumes(tag1, volume_max)
             else:
                 self.update_volumes(tag1, volume_min)
 
-            if self.is_tag_active(tag2, read_values):  
+            if read_values[1]:  
                 self.update_volumes(tag2, volume_max)
             else:
                 self.update_volumes(tag2, volume_min)
