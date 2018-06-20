@@ -13,8 +13,8 @@ class Player():
     self.sound1 = wave.open("pizzica/rithm.wav", 'rb')
     self.sound2 = wave.open("pizzica/lead.wav", 'rb')
     #self.sound3 = wave.open("pizzica/rithm.wav", 'rb')
-    self.volume1 = 0.05
-    self.volume2 = 0.05
+    self.volume1 = 0.0
+    self.volume2 = 0.0
 
     def callback(in_data, frame_count, time_info, status):
       data1 = self.sound1.readframes(frame_count)

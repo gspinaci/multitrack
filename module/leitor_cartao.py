@@ -26,7 +26,8 @@ tag1 = "3541237681"
 tag2 = "3541300382"
 
 volume_min = 0.0
-volume_max = 1.0
+volume_max2 = 1.0
+volume_max1 = 0.8
 
 
 class LeitorCartao(threading.Thread):
@@ -81,12 +82,12 @@ class LeitorCartao(threading.Thread):
             read_values = self.obtem_numero_cartao_rfid()
 
             if read_values[0]:
-                self.update_volumes(tag1, volume_max)
+                self.update_volumes(tag1, volume_max1)
             else:
                 self.update_volumes(tag1, volume_min)
 
             if read_values[1]:  
-                self.update_volumes(tag2, volume_max)
+                self.update_volumes(tag2, volume_max2)
             else:
                 self.update_volumes(tag2, volume_min)
 
@@ -104,7 +105,3 @@ class LeitorCartao(threading.Thread):
             self.music_player.set_volume1(volume)
         elif numero == tag2:
             self.music_player.set_volume2(volume)
-
-    def turnoff_volumes(self):
-        self.music_player.set_volume1(volume_min)
-        self.music_player.set_volume2(volume_max)
