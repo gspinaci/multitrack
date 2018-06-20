@@ -82,12 +82,12 @@ class LeitorCartao(threading.Thread):
             read_values = self.obtem_numero_cartao_rfid()
 
             if read_values[0]:
-                self.update_volumes(tag1, volume_max1)
+                self.update_volumes(tag1, volume_max2)
             else:
                 self.update_volumes(tag1, volume_min)
 
             if read_values[1]:  
-                self.update_volumes(tag2, volume_max2)
+                self.update_volumes(tag2, volume_max1)
             else:
                 self.update_volumes(tag2, volume_min)
 
