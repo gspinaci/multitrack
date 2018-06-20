@@ -1,9 +1,14 @@
 import sys
 import time
+from omxplayer.player import OMXPlayer
+from pathlib import Path
 
 from module.leitor_cartao import LeitorCartao
 
 reader_card = LeitorCartao()
+
+print "Video starts..."
+player = OMXPlayer(Path("./video/Slàinte.mp4"))
 
 try:
     while True:
@@ -11,6 +16,7 @@ try:
             reader_card.start()
 except KeyboardInterrupt:
     print "trl+C received! Sending kill to " + reader_card.getName()
+    player.quit()
     if reader_card.isAlive():
         reader_card._stopevent.set()
 
