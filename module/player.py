@@ -43,7 +43,7 @@ class Player():
 
   def play_video(self):
     print "Video starts..."
-    OMXPlayer(Path("../video/Slàinte.mp4"))
+    OMXPlayer(Path("./video/Slàinte.mp4"))
 
   def get_stream(self):
     return self.stream
