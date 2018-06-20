@@ -4,6 +4,9 @@
 import pyaudio
 import wave
 import numpy
+from omxplayer.player import OMXPlayer
+from pathlib import Path
+
 
 p = pyaudio.PyAudio()
 
@@ -27,6 +30,8 @@ class Player():
 
       newdata = (decodeddata1 * self.volume1 + decodeddata2 * self.volume2).astype(numpy.int16)
 
+      self.play_video()
+
       return (newdata.tostring(), pyaudio.paContinue)
 
     # open stream using callback (3)
@@ -35,6 +40,10 @@ class Player():
       rate = self.sound1.getframerate(),
       output = True,
       stream_callback = callback)
+
+  def play_video(self):
+    print "Video starts..."
+    OMXPlayer(Path("../video/Slàinte.mp4"))
 
   def get_stream(self):
     return self.stream
