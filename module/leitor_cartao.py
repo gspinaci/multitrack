@@ -17,8 +17,8 @@ from time import sleep
 from module.nfc_522 import Nfc522
 from module.player import Player
 
-tag1 = "3541237681"
-tag2 = "3541300382"
+tag1 = 3541237681
+tag2 = 3541300382
 
 bottle1 = "2809470880"
 bottle2 = "795038986"
