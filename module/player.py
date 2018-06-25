@@ -62,6 +62,6 @@ class Player():
     self.play()
 
   def stop(self):
-    if self.stream is not None:
+    if hasattr(self, 'stream'):
       self.stream.stop_stream()
       self.stream.close()
