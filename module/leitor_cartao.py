@@ -17,18 +17,13 @@ from time import sleep
 from module.nfc_522 import Nfc522
 from module.player import Player
 
-__author__ = "Erivando Sena Ramos"
-__copyright__ = "Erivando Sena (2016)"
-__email__ = "erivandoramos@bol.com.br"
-__status__ = "Prototype"
-
 tag1 = "3541237681"
 tag2 = "3541300382"
 
-volume_min = 0.0
-volume_max2 = 1.0
-volume_max1 = 0.8
+bottle1 = "2809470880"
+bottle2 = "795038986"
 
+readed_tags = list()
 
 class LeitorCartao(threading.Thread):
 
@@ -42,10 +37,10 @@ class LeitorCartao(threading.Thread):
         self.name = 'Thread LeitorCartao'
 
         self.music_player = Player()
-        self.stream = self.music_player.get_stream()
 
     def run(self):
         # Set volumes to 0 and play music
+        self.stream = self.music_player.stream_pizzica()
         self.music_player.play()
 
         print "%s. Run... " % self.name
@@ -58,24 +53,9 @@ class LeitorCartao(threading.Thread):
         id = None
         try:
             id = self.nfc.obtem_nfc_rfid()
-            # if id:
-            #     id = str(id).zfill(10)
-            #     if (len(id) >= 10):
-            #         self.numero_cartao = id
-            #         print "Read TAG Number: " + str(self.numero_cartao)
-            #         return self.numero_cartao
-            #     else:
-            #         print "Error TAG Number: " + str(self.numero_cartao)
-            #         id = None
-            #         return None
-            # else:
-            #     return id
             return id
         except Exception as e:
             print e
-
-    def is_tag_active(self, tag_id, read_value):
-        return tag_id == read_value[0] or tag_id == read_value[1]
 
     def ler(self):
         try:
@@ -83,15 +63,16 @@ class LeitorCartao(threading.Thread):
 
             print read_values
 
-            if read_values[0]:
-                self.update_volumes(tag1, volume_max2)
-            else:
-                self.update_volumes(tag1, volume_min)
+            # Clear the list
+            del readed_tags[:]
 
-            if read_values[1]:  
-                self.update_volumes(tag2, volume_max1)
-            else:
-                self.update_volumes(tag2, volume_min)
+            if read_values[0] is not None:
+                readed_tags.append(read_values[0])
+
+            if read_values[1] is not None:
+                readed_tags.append(read_values[1])
+
+            print readed_tags
 
         except Exception as e:
             print e
