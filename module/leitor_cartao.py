@@ -70,7 +70,7 @@ class LeitorCartao(threading.Thread):
             if read_values[1] is not None:
                 readed_tags.append(read_values[1])
 
-            self.mute_volumes()
+            #self.mute_volumes()
 
             for tag in readed_tags:
                 self.update_volumes(tag, self.music_player.max_volume)
@@ -85,6 +85,10 @@ class LeitorCartao(threading.Thread):
             print e
 
     def update_volumes(self, tag, volume):
+
+        print tag
+        print volume
+
         if tag == tag1:
             self.music_player.set_volume1(volume)
         elif tag == tag2:
