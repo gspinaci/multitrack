@@ -65,3 +65,6 @@ class Player():
     if hasattr(self, 'stream'):
       self.stream.stop_stream()
       self.stream.close()
+      
+      self.sound1.close()
+      self.sound2.close()
