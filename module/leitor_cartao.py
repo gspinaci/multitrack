@@ -23,8 +23,6 @@ tag2 = "3541300382"
 bottle1 = "2809470880"
 bottle2 = "795038986"
 
-readed_tags = list()
-
 class LeitorCartao(threading.Thread):
 
     nfc = Nfc522()
@@ -59,40 +57,22 @@ class LeitorCartao(threading.Thread):
 
     def ler(self):
         try:
-            read_values = self.obtem_numero_cartao_rfid()
-
-            # Clear the list
-            del readed_tags[:]
-
-            if read_values[0] is not None:
-                readed_tags.append(read_values[0])
-
-            if read_values[1] is not None:
-                readed_tags.append(read_values[1])
-
-            #self.mute_volumes()
-
-            for tag in readed_tags:
-                self.update_volumes(tag, self.music_player.max_volume)
+            self.update_volumes(self.obtem_numero_cartao_rfid())
 
         except Exception as e:
             print e
 
-    def valida_cartao(self, numero):
-        try:
-            print "I make interesting operations here with the tag:" + str(numero)
-        except Exception as e:
-            print e
+    def update_volumes(self, tags):
 
-    def update_volumes(self, tag, volume):
+        if tag1 in tags:
+            self.music_player.set_volume1(self.music_player.max_volume)
+        else:
+            self.music_player.set_volume1(self.music_player.min_volume)
 
-        print tag
-        print volume
-
-        if tag == tag1:
-            self.music_player.set_volume1(volume)
-        elif tag == tag2:
-            self.music_player.set_volume2(volume)
+        if tag2 in tags:
+            self.music_player.set_volume2(self.music_player.max_volume)
+        else:
+            self.music_player.set_volume2(self.music_player.min_volume)
 
     def mute_volumes(self):
         self.music_player.set_volume1(self.music_player.min_volume)
