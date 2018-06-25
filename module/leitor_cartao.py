@@ -64,15 +64,15 @@ class LeitorCartao(threading.Thread):
 
     def update_volumes(self, tags):
 
-        print tags
-
         if tag1 in tags:
             self.music_player.set_volume1(self.music_player.max_volume)
+            print tag1 + " in " +tags
         else:
             self.music_player.set_volume1(self.music_player.min_volume)
 
         if tag2 in tags:
             self.music_player.set_volume2(self.music_player.max_volume)
+            print tag2 + " in " +tags
         else:
             self.music_player.set_volume2(self.music_player.min_volume)
 
