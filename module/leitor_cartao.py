@@ -20,8 +20,8 @@ from module.player import Player
 tag1 = 3541237681
 tag2 = 3541300382
 
-bottle1 = "2809470880"
-bottle2 = "795038986"
+bottle1 = 2809470880
+bottle2 = 795038986
 
 class LeitorCartao(threading.Thread):
 
@@ -66,16 +66,16 @@ class LeitorCartao(threading.Thread):
 
         if tag1 in tags:
             self.music_player.set_volume1(self.music_player.max_volume)
-            print tag1 + " in " +tags
         else:
             self.music_player.set_volume1(self.music_player.min_volume)
 
         if tag2 in tags:
             self.music_player.set_volume2(self.music_player.max_volume)
-            print tag2 + " in " +tags
         else:
             self.music_player.set_volume2(self.music_player.min_volume)
 
-    def mute_volumes(self):
-        self.music_player.set_volume1(self.music_player.min_volume)
-        self.music_player.set_volume2(self.music_player.min_volume)
+        if bottle1 in tags:
+            print "Change to tarantella"
+
+        if bottle2 in tags:
+            print "Change to pizzica"
