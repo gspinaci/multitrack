@@ -37,10 +37,6 @@ class LeitorCartao(threading.Thread):
         self.music_player = Player()
 
     def run(self):
-        # Set volumes to 0 and play music
-        self.stream = self.music_player.stream_pizzica()
-        self.music_player.play()
-
         print "%s. Run... " % self.name
         while not self._stopevent.isSet():
             self.ler()
@@ -75,7 +71,9 @@ class LeitorCartao(threading.Thread):
             self.music_player.set_volume2(self.music_player.min_volume)
 
         if bottle1 in tags:
-            print "Change to tarantella"
+            print "Tarantella is starting..."
+            self.music_player.stream_tarantella()
 
         if bottle2 in tags:
-            print "Change to pizzica"
+            print "Pizzica is starting..."
+            self.music_player.stream_pizzica()
