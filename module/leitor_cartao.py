@@ -61,8 +61,6 @@ class LeitorCartao(threading.Thread):
         try:
             read_values = self.obtem_numero_cartao_rfid()
 
-            print read_values
-
             # Clear the list
             del readed_tags[:]
 
@@ -72,7 +70,10 @@ class LeitorCartao(threading.Thread):
             if read_values[1] is not None:
                 readed_tags.append(read_values[1])
 
-            print readed_tags
+            self.mute_volumes()
+
+            for tag in readed_tags:
+                self.update_volumes(tag, self.music_player.max_volume)
 
         except Exception as e:
             print e
@@ -83,8 +84,12 @@ class LeitorCartao(threading.Thread):
         except Exception as e:
             print e
 
-    def update_volumes(self, numero, volume):
-        if numero == tag1:
+    def update_volumes(self, tag, volume):
+        if tag == tag1:
             self.music_player.set_volume1(volume)
-        elif numero == tag2:
+        elif tag == tag2:
             self.music_player.set_volume2(volume)
+
+    def mute_volumes(self):
+        self.music_player.set_volume1(self.music_player.min_volume)
+        self.music_player.set_volume2(self.music_player.min_volume)
